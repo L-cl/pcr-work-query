@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const express = require('express');
 const compression = require('compression');
+const favicon = require('serve-favicon');
 const Cookies = require('cookies');
 const consola = require('consola');
 const { createBundleRenderer } = require('vue-server-renderer');
@@ -15,6 +16,7 @@ const serverInfo =
 const app = express();
 
 app.use(compression({ threshold: 0 })); // 对资源进行 gzip 压缩
+app.use(favicon('./favicon.ico'));
 app.use('/dist', express.static('./dist')); // 对静态资源处理
 
 let renderer;
@@ -50,7 +52,7 @@ if (isProd) {
 }
 
 const render = (req, res) => {
-  const defaultTitle = 'pcr-work-query';
+  const defaultTitle = '公主连结公会战作业分享和查询';
   const { url } = req;
 
   res.setHeader('Content-Type', 'text/html');
@@ -61,6 +63,11 @@ const render = (req, res) => {
 
   if (!pcrWorkQuerySession && url !== '/login') {
     res.redirect('/login');
+    return;
+  }
+
+  if (pcrWorkQuerySession && url === '/login') {
+    res.redirect('/');
     return;
   }
 

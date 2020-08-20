@@ -1,6 +1,10 @@
 <template>
   <div class="container">
-    <el-input v-model="value" placeholder="请输入机器人名称或者别名"></el-input>
+    <el-input
+      v-model="value"
+      placeholder="请输入机器人名称或者别名"
+      @keyup.enter.native="onLogin"
+    ></el-input>
     <el-button type="primary" @click="onLogin">登录</el-button>
   </div>
 </template>
@@ -25,7 +29,7 @@ export default {
       };
       const res = await login(params);
       if (res.code === 200) {
-        this.$router.push({
+        this.$router.replace({
           path: '/home',
         });
       } else {
