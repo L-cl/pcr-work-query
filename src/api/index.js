@@ -3,13 +3,19 @@ import request from '../utils/request';
 /**
  * 获取作业
  */
-export const getWorkList = (params) => {
-  return request({
+export const getWorkList = (params, cookie) => {
+  const reqConfig = {
     url: '/pcr/getWorkList',
     method: 'get',
     params,
     withCredentials: true,
-  });
+  };
+  if (cookie) {
+    reqConfig.headers = {
+      cookie,
+    };
+  }
+  return request(reqConfig);
 };
 
 /**
@@ -51,11 +57,17 @@ export const deleteWork = (params) => {
 /**
  * 查询作业
  */
-export const queryWork = (params) => {
-  return request({
+export const queryWork = (params, cookie) => {
+  const reqConfig = {
     url: '/pcr/queryWork',
     method: 'get',
     params,
     withCredentials: true,
-  });
+  };
+  if (cookie) {
+    reqConfig.headers = {
+      cookie,
+    };
+  }
+  return request(reqConfig);
 };

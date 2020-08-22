@@ -242,7 +242,7 @@ export default {
         const params = {
           id: this.workId,
         };
-        await this.$store.dispatch('QUERY_SINGLE_WORK_DATA', params);
+        await this.$store.dispatch('QUERY_SINGLE_WORK_DATA', { params });
         this.form = { ...this.singleWorkData };
         this.form.lineUp = (this.form.lineUp || '').split(',');
         if (this.form.picUrl) {

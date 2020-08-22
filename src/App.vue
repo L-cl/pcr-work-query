@@ -14,5 +14,7 @@ export default {
 .app {
   margin: 20px;
   min-width: 720px;
+  font-size: 12px;
+  color: #333;
 }
 </style>

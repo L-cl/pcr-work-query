@@ -60,13 +60,16 @@ const render = (req, res) => {
 
   const cookies = new Cookies(req, res);
   const pcrWorkQuerySession = cookies.get('pcrWorkQuerySession');
+  const pcrWorkQuerySessionSig = cookies.get('pcrWorkQuerySession.sig');
 
-  if (!pcrWorkQuerySession && url !== '/login') {
+  if (!pcrWorkQuerySession && !pcrWorkQuerySessionSig && url !== '/login') {
+    // 未登录重定向到登录页面
     res.redirect('/login');
     return;
   }
 
-  if (pcrWorkQuerySession && url === '/login') {
+  if (pcrWorkQuerySession && pcrWorkQuerySessionSig && url === '/login') {
+    // 已经登录则重定向到首页
     res.redirect('/');
     return;
   }
@@ -86,7 +89,11 @@ const render = (req, res) => {
   };
 
   // 初始化信息
-  const context = { title: defaultTitle, url };
+  const context = {
+    title: defaultTitle,
+    url,
+    cookie: `pcrWorkQuerySession=${pcrWorkQuerySession};pcrWorkQuerySession.sig=${pcrWorkQuerySessionSig}`,
+  };
 
   renderer.renderToString(context, (err, html) => {
     if (err) {

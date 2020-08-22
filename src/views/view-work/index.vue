@@ -1,42 +1,49 @@
 <template>
-  <div class="container" v-loading="loading">
+  <div class="view-work-container" v-loading="loading">
     <router-link to="/home">
       <el-button size="mini" type="primary" plain>返回</el-button>
     </router-link>
     <div class="content">
-      <div class="work-item boss-info">
-        <el-table :data="tableData" style="width: 720px" border>
-          <el-table-column label="boss" width="100">
-            <template slot-scope="{ row }">
-              <span>{{ row | formatBoss }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column label="周目" width="100">
-            <template slot-scope="{ row }">
-              <span>{{ row | formatWeek }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column label="阶段">
-            <template slot-scope="{ row }">
-              <span>{{ row | formatStage }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column label="阵容" :show-overflow-tooltip="true">
-            <template slot-scope="{ row }">
-              <el-tooltip placement="right">
-                <span slot="content" class="line-up">{{
-                  row | formatLineUp
-                }}</span>
-                <span class="line-up">{{ row | formatLineUpSimple }}</span>
-              </el-tooltip>
-            </template>
-          </el-table-column>
-          <el-table-column label="伤害" width="100">
-            <template slot-scope="{ row }">
-              <span>{{ row | formatNumber }}</span>
-            </template>
-          </el-table-column>
-        </el-table>
+      <div class="work-table-container">
+        <div class="row">
+          <div class="cell" style="width: 100px;">
+            <span class="label">boss</span>
+          </div>
+          <div class="cell" style="width: 100px;">
+            <span class="label">周目</span>
+          </div>
+          <div class="cell" style="width: 200px;">
+            <span class="label">阶段</span>
+          </div>
+          <div class="cell" style="width: 200px;">
+            <span class="label">阵容</span>
+          </div>
+          <div class="cell" style="width: 100px;">
+            <span class="label">伤害</span>
+          </div>
+        </div>
+        <div v-for="item of tableData" :key="item.id" class="row">
+          <div class="cell" style="width: 100px;">
+            <span>{{ item | formatBoss }}</span>
+          </div>
+          <div class="cell" style="width: 100px;">
+            <span>{{ item | formatWeek }}</span>
+          </div>
+          <div class="cell" style="width: 200px;">
+            <span>{{ item | formatStage }}</span>
+          </div>
+          <div class="cell" style="width: 200px;">
+            <el-tooltip placement="right">
+              <span slot="content" class="line-up">{{
+                item | formatLineUp
+              }}</span>
+              <span class="line-up">{{ item | formatLineUpSimple }}</span>
+            </el-tooltip>
+          </div>
+          <div class="cell" style="width: 100px;">
+            <span>{{ item | formatNumber }}</span>
+          </div>
+        </div>
       </div>
       <div class="work-item boss-work">
         <span class="label">作业：</span>
@@ -52,9 +59,7 @@
             :src="url"
             @click="onPreview(url)"
           >
-            <div slot="placeholder" class="image-slot">
-              加载中<span class="dot">...</span>
-            </div>
+            <div slot="placeholder" class="image-slot" v-loading="true"></div>
           </el-image>
         </template>
         <template v-else>
@@ -77,11 +82,11 @@ export default {
     PicPreview,
   },
   filters,
-  asyncData({ store, route }) {
+  asyncData({ store, route, cookie }) {
     const params = {
       id: route.params.id,
     };
-    return store.dispatch('QUERY_SINGLE_WORK_DATA', params);
+    return store.dispatch('QUERY_SINGLE_WORK_DATA', { params, cookie });
   },
   data() {
     return {
@@ -143,7 +148,7 @@ export default {
       const params = {
         id: this.id,
       };
-      this.$store.dispatch('QUERY_SINGLE_WORK_DATA', params);
+      this.$store.dispatch('QUERY_SINGLE_WORK_DATA', { params });
     },
     /**
      * 预览图片
@@ -156,32 +161,55 @@ export default {
 };
 </script>
 
-<style scoped lang="less">
-.content {
-  margin-top: 20px;
-}
-.line-up {
-  white-space: pre-line;
-}
-.work-item {
-  display: flex;
-  margin-bottom: 20px;
-  &.boss-info {
-    display: block;
+<style lang="less" scoped>
+.view-work-container {
+  font-size: 14px;
+  .content {
+    margin-top: 20px;
+    .work-table-container {
+      display: inline-flex;
+      flex-direction: column;
+      font-size: 14px;
+      border-left: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+      .row {
+        display: flex;
+        align-items: center;
+        height: 48px;
+        .cell {
+          display: flex;
+          align-items: center;
+          height: 100%;
+          border: 1px solid #eee;
+          border-left: none;
+          border-bottom: none;
+          padding-left: 12px;
+        }
+      }
+    }
+    .work-item {
+      display: flex;
+      margin-top: 20px;
+      &.boss-info {
+        display: block;
+      }
+      .label {
+        width: 64px;
+        line-height: 20px;
+        text-align: right;
+        margin-right: 12px;
+      }
+      .work {
+        line-height: 20px;
+        white-space: pre-line;
+      }
+      .img {
+        width: 300px;
+        height: 300px;
+        border: 1px solid #ddd;
+        cursor: zoom-in;
+      }
+    }
   }
-}
-.label {
-  width: 64px;
-  text-align: right;
-  margin-right: 12px;
-}
-.work {
-  white-space: pre-line;
-}
-.img {
-  width: 300px;
-  height: 300px;
-  border: 1px solid #ddd;
-  cursor: zoom-in;
 }
 </style>

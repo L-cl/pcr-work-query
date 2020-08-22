@@ -4,13 +4,6 @@ export default (context) => {
   return new Promise((resolve, reject) => {
     const { app, router, store } = createApp();
 
-    const { url } = context;
-    const { fullPath } = router.resolve(url).route;
-
-    if (fullPath !== url) {
-      return reject({ url: fullPath });
-    }
-
     router.push(context.url);
 
     router.onReady(() => {
@@ -26,6 +19,7 @@ export default (context) => {
             return Component.asyncData({
               store,
               route: router.currentRoute,
+              cookie: context.cookie,
             });
           }
         })

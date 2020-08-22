@@ -23,9 +23,10 @@ export default {
   /**
    * 获取作业列表
    */
-  async GET_WORK_LIST({ commit }, params) {
+  async GET_WORK_LIST({ commit }, payload = {}) {
     commit('SET_LOADING', true);
-    const res = await getWorkList(params);
+    const { params, cookie } = payload;
+    const res = await getWorkList(params, cookie);
     const data = handleResponse(res);
     if (isDef(data)) {
       commit('SET_WORK_LIST', data);
@@ -35,9 +36,10 @@ export default {
   /**
    * 查询作业
    */
-  async QUERY_SINGLE_WORK_DATA({ commit }, params) {
+  async QUERY_SINGLE_WORK_DATA({ commit }, payload = {}) {
     commit('SET_LOADING', true);
-    const res = await queryWork(params);
+    const { params, cookie } = payload;
+    const res = await queryWork(params, cookie);
     const data = handleResponse(res);
     if (isDef(data)) {
       commit('SET_SINGLE_WORK_DATA', data);

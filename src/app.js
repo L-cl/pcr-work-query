@@ -22,6 +22,8 @@ import {
   Loading,
 } from 'element-ui';
 
+import 'normalize.css';
+
 Vue.use(Button);
 Vue.use(Input);
 Vue.use(Tabs);
