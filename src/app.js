@@ -5,10 +5,6 @@ import { createStore } from './store';
 import {
   Button,
   Input,
-  Tabs,
-  TabPane,
-  Table,
-  TableColumn,
   Form,
   FormItem,
   Select,
@@ -26,10 +22,6 @@ import 'normalize.css';
 
 Vue.use(Button);
 Vue.use(Input);
-Vue.use(Tabs);
-Vue.use(TabPane);
-Vue.use(Table);
-Vue.use(TableColumn);
 Vue.use(Form);
 Vue.use(FormItem);
 Vue.use(Select);
