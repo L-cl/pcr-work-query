@@ -216,4 +216,8 @@ export default {
     }
   }
 }
+.line-up {
+  line-height: 20px;
+  white-space: pre-line;
+}
 </style>
