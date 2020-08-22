@@ -87,9 +87,9 @@ export default {
     tableData() {
       const workList = [...this.$store.state.workList];
       if (this.sort === 1) {
-        return workList.sort((p, n) => p.hurt - n.hurt);
-      } else if (this.sort === 0) {
         return workList.sort((p, n) => n.hurt - p.hurt);
+      } else if (this.sort === 0) {
+        return workList.sort((p, n) => p.hurt - n.hurt);
       }
       return this.$store.state.workList;
     },
