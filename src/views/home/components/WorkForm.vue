@@ -164,6 +164,10 @@ export default {
             value: '5',
             label: '五王',
           },
+          {
+            value: '6',
+            label: 'EX1',
+          },
         ],
         week: [
           {

@@ -9,6 +9,7 @@ export default {
       ['3', '三王'],
       ['4', '四王'],
       ['5', '五王'],
+      ['6', 'EX1'],
     ]);
     return bossMap.get(row.boss);
   },
