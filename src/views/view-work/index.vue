@@ -49,6 +49,10 @@
         <span class="label">作业：</span>
         <div class="work">{{ work }}</div>
       </div>
+      <div class="work-item boss-work" v-if="videoSrc">
+        <span class="label">视频：</span>
+        <a :href="videoSrc" target="_blank" class="work">{{ videoSrc }}</a>
+      </div>
       <div class="work-item boss-work-pic">
         <span class="label">图片：</span>
         <template v-if="picUrl.length > 0">
@@ -127,7 +131,7 @@ export default {
       return work || '暂无数据';
     },
     /**
-     * 作业拖欠
+     * 作业图片
      */
     picUrl() {
       const { picUrl } = this.singleWorkData;
@@ -135,6 +139,13 @@ export default {
         return picUrl.split(',');
       }
       return [];
+    },
+    /**
+     * 作业视频链接地址
+     */
+    videoSrc() {
+      const { videoSrc } = this.singleWorkData;
+      return videoSrc || '';
     },
   },
   mounted() {

@@ -77,6 +77,13 @@
         size="small"
       ></el-input>
     </el-form-item>
+    <el-form-item label="视频" prop="work">
+      <el-input
+        v-model="form.videoSrc"
+        placeholder="请填写视频链接地址"
+        size="small"
+      ></el-input>
+    </el-form-item>
     <el-form-item label="作业图片">
       <el-upload
         :on-success="uploadSuccess"
@@ -140,6 +147,7 @@ export default {
         lineUp: [], // 阵容
         hurt: '', // 伤害
         work: '', // 作业
+        videoSrc: '' // 视频链接地址
       },
       fileList: [], // 上传的图片
       options: {
