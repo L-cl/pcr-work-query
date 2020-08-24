@@ -177,6 +177,9 @@ export default {
     display: flex;
     align-items: center;
     height: 48px;
+    &:hover {
+      background-color: #ddd;
+    }
     .cell {
       display: flex;
       align-items: center;

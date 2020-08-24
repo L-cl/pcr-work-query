@@ -82,7 +82,12 @@
         />
       </div>
       <div class="content" v-show="activeName === 'second'">
-        <WorkForm @update="update" :is-edit="isEdit" :work-id="workId" />
+        <WorkForm
+          ref="work-form"
+          :is-edit="isEdit"
+          :work-id="workId"
+          @update="update"
+        />
       </div>
     </div>
   </div>
@@ -181,6 +186,7 @@ export default {
       if (val === 'first') {
         this.isEdit = false;
         this.workId = '';
+        this.$refs['work-form'].resetForm('form');
       }
     },
   },

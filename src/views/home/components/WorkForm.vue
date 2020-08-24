@@ -255,7 +255,9 @@ export default {
           id: this.workId,
         };
         await this.$store.dispatch('QUERY_SINGLE_WORK_DATA', { params });
-        this.form = { ...this.singleWorkData };
+        this.form = JSON.parse(
+          JSON.stringify(this.singleWorkData, Object.keys(this.form))
+        );
         this.form.lineUp = (this.form.lineUp || '').split(',');
         if (this.form.picUrl) {
           this.fileList = this.form.picUrl.split(',').map((item) => {
@@ -267,8 +269,6 @@ export default {
           this.fileList = [];
         }
         delete this.form.picUrl;
-      } else {
-        this.resetForm('form');
       }
     },
   },
@@ -288,7 +288,7 @@ export default {
         if (valid) {
           this.submiting = true;
           const data = { ...this.form };
-          !this.isEdit && delete data.id;
+          this.isEdit && (data.id = this.workId);
           data.lineUp = this.form.lineUp.join(',');
           data.picUrl = this.fileList.map((item) => item.url).join(',');
           const res = await this.mapSubmitFn(data);
