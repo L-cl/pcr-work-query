@@ -77,7 +77,7 @@
         size="small"
       ></el-input>
     </el-form-item>
-    <el-form-item label="视频" prop="work">
+    <el-form-item label="视频" prop="videoSrc">
       <el-input
         v-model="form.videoSrc"
         placeholder="请填写视频链接地址"
@@ -147,7 +147,7 @@ export default {
         lineUp: [], // 阵容
         hurt: '', // 伤害
         work: '', // 作业
-        videoSrc: '' // 视频链接地址
+        videoSrc: '', // 视频链接地址
       },
       fileList: [], // 上传的图片
       options: {
@@ -288,6 +288,7 @@ export default {
         if (valid) {
           this.submiting = true;
           const data = { ...this.form };
+          !this.isEdit && delete data.id;
           data.lineUp = this.form.lineUp.join(',');
           data.picUrl = this.fileList.map((item) => item.url).join(',');
           const res = await this.mapSubmitFn(data);
