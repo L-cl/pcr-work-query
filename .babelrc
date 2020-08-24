@@ -1,0 +1,12 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "chrome": "67" // chrome浏览器版本大于67时就不做转换
+        }
+      }
+    ]
+  ]
+}

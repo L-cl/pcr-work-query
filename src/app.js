@@ -17,7 +17,7 @@ import {
   MessageBox,
   Loading,
 } from 'element-ui';
-
+import 'babel-polyfill';
 import 'normalize.css';
 
 Vue.use(Button);
