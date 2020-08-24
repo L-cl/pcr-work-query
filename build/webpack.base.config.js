@@ -18,18 +18,6 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
-        options: {
-          // presets: ['@babel/preset-env'],
-          plugins: [
-            [
-              'component',
-              {
-                libraryName: 'element-ui',
-                styleLibraryName: 'theme-chalk',
-              },
-            ],
-          ],
-        },
       },
       {
         test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,

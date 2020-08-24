@@ -1,11 +1,23 @@
 {
   "presets": [
     [
-      "@babel/preset-env",
+      "@babel/env",
       {
+        "modules": false,
         "targets": {
-          "chrome": "67" // chrome浏览器版本大于67时就不做转换
+          "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
         }
+      }
+    ]
+  ],
+  "plugins": [
+    "@babel/plugin-transform-runtime",
+    "@babel/plugin-transform-regenerator",
+    [
+      "component",
+      {
+        "libraryName": "element-ui",
+        "styleLibraryName": "theme-chalk"
       }
     ]
   ]
